@@ -1,0 +1,16 @@
+name: ephemeorg
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        NPM_TOKEN: "${NPM_TOKEN}"
+    image: ephemeorg-backend:local
+    container_name: ephemeorg-backend
+    ports:
+      - "8791:8791"
+    environment:
+      PORT: "8791"
+    restart: unless-stopped

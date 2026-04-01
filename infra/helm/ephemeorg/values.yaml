@@ -1,0 +1,30 @@
+nameOverride: ephemeorg
+fullnameOverride: ephemeorg
+
+image:
+  repository: silentcoil.sillygooseia.com:5000/ephemeorg/backend
+  tag: latest
+  pullPolicy: Always
+
+replicaCount: 1
+
+service:
+  port: 8791
+
+env:
+  PORT: "8791"
+
+resources:
+  requests:
+    cpu: "25m"
+    memory: "48Mi"
+  limits:
+    cpu: "200m"
+    memory: "160Mi"
+
+ingress:
+  enabled: true
+  className: traefik
+  host: epheme.org
+  tlsSecretName: epheme-org-tls
+  clusterIssuer: letsencrypt-prod

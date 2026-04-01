@@ -1,0 +1,253 @@
+:root {
+  --bg: #0c1412;
+  --surface: #13201d;
+  --text: #e6f1eb;
+  --muted: #b2c5bc;
+  --mint: #39d8b4;
+  --sun: #ffb862;
+  --ring: rgba(57, 216, 180, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(57, 216, 180, 0.2), transparent 38%),
+    radial-gradient(circle at 88% 18%, rgba(255, 184, 98, 0.25), transparent 34%),
+    linear-gradient(160deg, #0a110f 0%, #0f1a17 45%, #0a100f 100%);
+}
+
+.aurora {
+  position: fixed;
+  inset: -40% -10% auto -10%;
+  height: 70vh;
+  background: radial-gradient(circle, rgba(57, 216, 180, 0.15) 0%, transparent 65%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite;
+}
+
+.hero,
+main,
+footer {
+  width: min(1080px, 92vw);
+  margin-inline: auto;
+}
+
+.hero {
+  padding: 5.5rem 0 2.5rem;
+  animation: rise 650ms ease-out;
+}
+
+.eyebrow {
+  color: var(--mint);
+  letter-spacing: 0.34em;
+  font-size: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Sora", sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 6vw, 4.3rem);
+  line-height: 1.05;
+  max-width: 14ch;
+}
+
+.lede {
+  margin: 1.2rem 0 0;
+  color: var(--muted);
+  max-width: 62ch;
+  font-size: 1.07rem;
+}
+
+.hero-actions {
+  margin-top: 1.7rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: #082119;
+  background: linear-gradient(90deg, var(--mint), #8cf0d9);
+  box-shadow: 0 12px 26px -14px var(--ring);
+}
+
+.btn-ghost {
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+main {
+  padding-bottom: 3.2rem;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.35rem;
+  margin-bottom: 1rem;
+  animation: rise 600ms ease-out;
+}
+
+.panel h2 {
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.philosophy-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.7rem;
+}
+
+.beliefs {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--muted);
+}
+
+article {
+  padding: 0.85rem;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+article h3 {
+  color: var(--sun);
+  font-size: 1.05rem;
+}
+
+article p,
+.timeline li {
+  color: var(--muted);
+}
+
+.timeline ol {
+  margin: 0.9rem 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.showcase-lede {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+}
+
+.showcase-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.showcase-card {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.12));
+}
+
+.showcase-card a {
+  color: var(--mint);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.showcase-links {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.disclaimer {
+  margin: 1.2rem 0 0;
+  border: 1px solid rgba(255, 184, 98, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 184, 98, 0.12), rgba(255, 184, 98, 0.05));
+  padding: 0.95rem 1rem;
+}
+
+.disclaimer p {
+  margin: 0;
+  color: #ffe5c2;
+  line-height: 1.55;
+}
+
+footer {
+  padding: 0 0 2rem;
+  color: rgba(230, 241, 235, 0.72);
+}
+
+footer a {
+  color: var(--mint);
+  text-underline-offset: 3px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(16px);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 4.4rem;
+  }
+
+  .panel {
+    padding: 1.1rem;
+  }
+}

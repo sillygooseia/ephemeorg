@@ -1,0 +1,11 @@
+{
+  "name": "ephemeorg",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Epheme platform showcase site",
+  "scripts": {
+    "dev": "npm --prefix backend run dev",
+    "start": "npm --prefix backend run start",
+    "install:all": "npm --prefix backend install"
+  }
+}
