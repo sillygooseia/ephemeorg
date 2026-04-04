@@ -3,152 +3,148 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Epheme | Ephemeral-by-default platform</title>
+    <title>Welcome to Epheme | Open Source MIT Culture</title>
     <meta
       name="description"
-      content="Epheme is the platform for fast, privacy-first shared experiences that expire on purpose."
+      content="Epheme is a home for local-first, privacy-respecting, ephemeral software built in the open under MIT culture."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/app.css" />
   </head>
   <body>
-    <div class="aurora"></div>
-    <header class="hero">
-      <p class="eyebrow">E P H E M E</p>
-      <h1>Shared software that knows when to disappear.</h1>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="stage" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+    </div>
+
+    <header class="hero wrap">
+      <div class="hero-top">
+        <p class="kicker">E P H E M E</p>
+        <figure class="hero-brand" aria-label="Epheme logo">
+          <img class="hero-logo" src="/epheme_logo_cropped.png" alt="Epheme infinity logo" />
+        </figure>
+      </div>
+      <h1>Welcome to Epheme</h1>
+      <p class="subhead">A home for lighter software and the people who prefer it.</p>
       <p class="lede">
-        Epheme is the platform layer for real-time collaboration where rooms, identities, and state are
-        intentionally short-lived, secure, and composable.
+        We build in the open with MIT-first values: local-first tools, no-account flows, and systems
+        that let go when the work is done.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://play.epheme.org" target="_blank" rel="noreferrer">Try EphemePlay</a>
-        <a class="btn btn-ghost" href="#platform">See platform components</a>
-        <a class="btn btn-ghost" href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">View GitHub</a>
+        <a class="btn btn-primary" href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">Explore on GitHub</a>
+        <a class="btn btn-ghost" href="https://www.reddit.com/r/epheme/" target="_blank" rel="noreferrer">Join us on Reddit</a>
+        <!-- <a class="btn btn-ghost" href="#principles">Read principles</a>
+        <a class="btn btn-ghost" href="#invitation">Join the movement</a> -->
       </div>
+      <aside class="license-banner" aria-label="Open source culture notice">
+        <p>
+          Open source by default.
+          <strong>MIT culture:</strong> use it, remix it, ship it, share it.
+        </p>
+      </aside>
     </header>
 
-    <main>
-      <section class="panel philosophy" id="philosophy">
-        <h2>Our Philosophy</h2>
-        <p class="showcase-lede">
-          We are Silly Goose Interactive, a tiny studio building tools that feel alive, lightweight, and human.
-          We care about momentum, not machinery.
-          We design software that gets out of the way so people can do things together without ceremony or overhead.
+    <main class="wrap">
+      <section class="panel" id="what-is">
+        <h2>What Epheme Is</h2>
+        <p>
+          Epheme is a vision for software that respects people more than metrics. A place for developers who
+          feel the weight of modern SaaS and want something quieter, simpler, and more sovereign.
         </p>
-        <div class="philosophy-grid">
-          <article>
-            <h3>Who We Are</h3>
-            <p>
-              We are Silly Goose Interactive, a tiny studio building tools that feel alive, lightweight, and human.
-            </p>
-          </article>
-          <article>
-            <h3>Why We Build</h3>
-            <p>
-              Most software slows you down before it helps you. It asks for accounts, permissions, onboarding,
-              identity, and commitment before you have even started.
-            </p>
-            <p>
-              We build the opposite: spaces you can enter instantly, use freely, and leave without a trace.
-              Tools that respect your time, your privacy, and your autonomy.
-            </p>
-          </article>
-          <article>
-            <h3>What We Believe</h3>
-            <ul class="beliefs">
-              <li><strong>Ephemerality creates freedom.</strong> Not everything needs to be saved, tracked, or remembered.</li>
-              <li><strong>Simplicity is a form of respect.</strong> The clearest tools are the ones you do not have to think about.</li>
-              <li><strong>Shared state should be intentional.</strong> Only what needs to be shared is shared, and only for as long as it is useful.</li>
-              <li><strong>People collaborate best when the software disappears.</strong> The tool should feel like a table, not a system.</li>
-              <li><strong>Privacy is not a feature.</strong> It is the baseline for trust, creativity, and honest play.</li>
-            </ul>
-          </article>
-          <article>
-            <h3>What We Are Making</h3>
-            <p>
-              Epheme is our foundation for building these kinds of spaces: fast to enter, safe to use, and
-              effortless to leave.
-              It powers micro-tools, shared rooms, and playful experiments that do not require identity,
-              accounts, or commitment.
-            </p>
-            <p>We are here to make software feel lighter, kinder, and more human.</p>
-          </article>
-        </div>
+        <p>
+          We are growing this into a collection of open resources, reference projects, and practical patterns
+          for building privacy-focused software with less platform baggage.
+        </p>
       </section>
 
-      <section id="platform" class="panel">
-        <h2>Platform capabilities</h2>
-        <div class="grid">
-          <article>
-            <h3>Ephemeral identity</h3>
-            <p>JWT-based device identity designed for lightweight trust without heavyweight account systems.</p>
-          </article>
-          <article>
-            <h3>Realtime primitives</h3>
-            <p>Event transport and room sync patterns optimized for low friction, multiplayer interactions.</p>
-          </article>
-          <article>
-            <h3>Graceful degradation</h3>
-            <p>Core systems remain available even when optional infrastructure like Redis is unavailable.</p>
-          </article>
-          <article>
-            <h3>Composable by design</h3>
-            <p>Use core building blocks to ship products like portals, tools, and collaborative play spaces.</p>
-          </article>
-        </div>
+      <section class="panel" id="why">
+        <h2>Why This Exists</h2>
+        <p>
+          Most software today assumes it needs to know you: your name, your history, your behavior. Epheme is a
+          reaction to that.
+        </p>
+        <ul class="values-list">
+          <li>local-first</li>
+          <li>privacy-respecting</li>
+          <li>ephemeral</li>
+          <li>playful</li>
+          <li>unburdened by corporate gravity</li>
+        </ul>
+        <p class="line">Not everything needs to scale. Not everything needs to remember.</p>
       </section>
 
-      <section class="panel showcase" id="showcase">
-        <h2>Built on Epheme</h2>
-        <p class="showcase-lede">Real products shaped by the same core platform primitives.</p>
-        <div class="showcase-grid">
-          <article class="showcase-card">
-            <h3>LeaveAt</h3>
-            <p>Scheduling and coordination flows delivered as a focused product surface.</p>
-            <a href="https://leaveat.com" target="_blank" rel="noreferrer">Open LeaveAt</a>
-          </article>
-          <article class="showcase-card">
-            <h3>BafGo</h3>
-            <p>The broader suite and portal experience that composes multiple collaborative tools.</p>
-            <a href="https://bafgo.com" target="_blank" rel="noreferrer">Open BafGo</a>
-          </article>
-          <article class="showcase-card">
-            <h3>EphemePlay</h3>
-            <p>Ephemeral multiplayer spaces for shared play, powered by realtime room primitives.</p>
-            <div class="showcase-links">
-              <a href="https://play.epheme.org" target="_blank" rel="noreferrer">Open EphemePlay</a>
-              <a href="https://github.com/sillygooseia/epheme/tree/main/ephemeplay" target="_blank" rel="noreferrer">View source</a>
-            </div>
-          </article>
-        </div>
+      <section class="panel" id="find-here">
+        <h2>What You Will Find Here</h2>
+        <p>
+          We are building a collection of resources for developers who want to build software that is
+          privacy-first, local-first, and free of unnecessary platform weight.
+        </p>
+        <p>
+          This is a work in progress. The ideas are here. The tools and guides are being shaped over time
+          — in the open, without a roadmap or a deadline.
+        </p>
+        <p class="coming-soon-note">Check back as things take shape, or join the conversation on Reddit.</p>
       </section>
 
-      <section class="panel timeline">
-        <h2>From core to experience</h2>
-        <ol>
-          <li><strong>Core</strong> provides identity, metrics, plugin host, and browser SDK primitives.</li>
-          <li><strong>Apps</strong> compose those primitives into domain tools and multiplayer flows.</li>
-          <li><strong>Infra</strong> deploys each surface cleanly with Helm and repeatable scripts.</li>
+      <section class="panel" id="principles">
+        <h2>How We Build</h2>
+        <ol class="principles">
+          <li>
+            <h3>Local First</h3>
+            <p>Your device is enough. No cloud unless absolutely necessary.</p>
+          </li>
+          <li>
+            <h3>No Accounts</h3>
+            <p>If a tool needs your identity, it probably is not an Epheme tool.</p>
+          </li>
+          <li>
+            <h3>No Tracking</h3>
+            <p>We do not watch, measure, or profile. We build tools, not funnels.</p>
+          </li>
+          <li>
+            <h3>Ephemeral by Default</h3>
+            <p>When you are done, the tool should let go. No history. No baggage.</p>
+          </li>
+          <li>
+            <h3>Playful, Not Noisy</h3>
+            <p>Warm, human, developer-friendly. Never corporate.</p>
+          </li>
         </ol>
       </section>
 
-      <section class="disclaimer" aria-label="Status notice">
+      <section class="panel" id="not">
+        <h2>What Epheme Is Not</h2>
+        <ul class="not-list">
+          <li>a startup</li>
+          <li>a growth engine</li>
+          <li>a platform chasing lock-in</li>
+          <li>a brand hunting attention</li>
+          <li>a place for heavy identity systems</li>
+        </ul>
+        <p>If it feels clingy, extractive, or overbuilt, it is not Epheme.</p>
+      </section>
+
+      <section class="panel invitation" id="invitation">
+        <h2>The Invitation</h2>
         <p>
-          We are still piecing together documentation and product details across the Epheme ecosystem.
-          This site is actively evolving, so please keep checking back for regular updates.
+          Epheme is open to anyone building software that is privacy-first, local-first, and human-scale.
+          Bring what you are making. Learn from shared resources. Help shape what better software can feel like.
         </p>
+        <p class="build-line">Build freely. Leave no trace.</p>
       </section>
     </main>
 
-    <footer>
+    <footer class="wrap">
       <p>
-        Built by Silly Goose Interactive Corp. Platform-first. Ephemeral-on-purpose.
+        Built by Silly Goose Interactive Corp.
         <a href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">GitHub</a>
+        and open-source projects released under MIT where noted.
       </p>
     </footer>
   </body>

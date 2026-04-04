@@ -6,7 +6,10 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --omit=dev
+RUN echo "@epheme:registry=https://npm.sillygooseia.com" >> .npmrc && \
+    echo "//npm.sillygooseia.com/:_authToken=${NPM_TOKEN}" >> .npmrc && \
+    npm ci --omit=dev && \
+    rm -f .npmrc
 
 FROM node:22-alpine
 
