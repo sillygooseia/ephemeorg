@@ -16,4 +16,5 @@ Open: http://localhost:8791
 
 - Standalone static marketing/showcase page
 - Served by a lightweight Express backend
+- Includes a new `/blog` area for posts, tutorials, and technical notes
 - Deployable to Kubernetes via Helm chart in `infra/helm/ephemeorg`

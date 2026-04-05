@@ -1,0 +1,129 @@
+:root {
+  --blog-bg: #fbf6ef;
+  --blog-panel: #ffffff;
+  --blog-border: rgba(35, 41, 36, 0.12);
+  --blog-heading: #14221b;
+  --blog-text: #2f3a2f;
+  --blog-muted: #5a645f;
+  --blog-accent: #0c8f61;
+}
+
+body.blog {
+  background: linear-gradient(180deg, #fdf8f1 0%, #fbf6ef 100%);
+}
+
+main.blog-page {
+  width: min(980px, 90vw);
+  margin: 2.8rem auto 3rem;
+  padding: 0 1rem;
+}
+
+.blog-header,
+.blog-post,
+.blog-card {
+  background: var(--blog-panel);
+  border: 1px solid var(--blog-border);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px -28px rgba(31, 44, 36, 0.35);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-header h1,
+.blog-post h1 {
+  margin-top: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.1rem, 3.2vw, 3.4rem);
+  color: var(--blog-heading);
+}
+
+.blog-header p,
+.blog-card p,
+.blog-post p,
+.blog-post li {
+  color: var(--blog-text);
+  line-height: 1.8;
+}
+
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  color: var(--blog-muted);
+  font-size: 0.95rem;
+}
+
+.blog-meta span {
+  background: rgba(12, 143, 97, 0.08);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+}
+
+.blog-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.blog-card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.6rem;
+}
+
+.blog-card a {
+  color: var(--blog-accent);
+  text-decoration: none;
+}
+
+.blog-card a:hover {
+  text-decoration: underline;
+}
+
+.blog-post article {
+  max-width: 100%;
+}
+
+.blog-post h2,
+.blog-post h3,
+.blog-post h4,
+.blog-post h5 {
+  color: var(--blog-heading);
+}
+
+.blog-post h2 {
+  margin-top: 1.8rem;
+  font-size: 1.8rem;
+}
+
+.blog-post pre,
+.blog-post code {
+  background: #f2efe7;
+  border-radius: 12px;
+  padding: 0.95rem;
+  overflow-x: auto;
+}
+
+.blog-post ul,
+.blog-post ol {
+  margin: 1rem 0 1rem 1.4rem;
+}
+
+.blog-post img {
+  max-width: 100%;
+  border-radius: 16px;
+}
+
+.blog-post .back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--blog-accent);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .blog-header,
+  .blog-post,
+  .blog-card {
+    padding: 1.4rem;
+  }
+}
