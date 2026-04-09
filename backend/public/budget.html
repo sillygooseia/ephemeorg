@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Calculator | Epheme</title>
+    <meta
+      name="description"
+      content="Epheme local budget calculator for expenses, income, and debt payment recommendations."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/app.css" />
+    <link rel="stylesheet" href="/budget.css" />
+  </head>
+  <body class="blog">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="stage" aria-hidden="true">
+      <span class="orb orb-1"></span>
+      <span class="orb orb-2"></span>
+    </div>
+
+    <header class="hero wrap budget-hero compact-hero">
+      <div class="budget-hero-row">
+        <div>
+          <p class="kicker">E P H E M E</p>
+          <h1>Budget cockpit</h1>
+          <p class="subhead">Fast, compact budget planning designed for high-volume debt and cash-flow work.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="/">Back</a>
+          <a class="btn btn-ghost" href="/blog">Blog</a>
+        </div>
+      </div>
+      <aside class="license-banner" aria-label="Local storage notice">
+        <p>No account, no tracking, local browser storage only.</p>
+      </aside>
+    </header>
+
+    <main class="wrap budget-app compact" id="budget-app">
+      <div class="budget-toolbar">
+        <div class="budget-toolbar-left">
+          <button id="toggle-dense" class="btn btn-ghost" type="button">Dense</button>
+          <button id="toggle-debts-full" class="btn btn-ghost" type="button">Debts Full</button>
+          <button id="toggle-yaml" class="btn btn-ghost" type="button" aria-expanded="false">Show YAML</button>
+        </div>
+        <input id="debts-filter" class="budget-filter" placeholder="Filter debts by name, type, balance..." aria-label="Filter debts" />
+        <div class="budget-shortcuts">Shortcuts: <strong>d</strong> dense • <strong>f</strong> debts • <strong>y</strong> yaml</div>
+      </div>
+
+      <section class="budget-summary-strip" aria-label="Budget dashboard summary">
+        <article class="budget-chip">
+          <span>Income</span>
+          <strong id="total-income">$0</strong>
+        </article>
+        <article class="budget-chip">
+          <span>Expenses</span>
+          <strong id="total-expenses">$0</strong>
+        </article>
+        <article class="budget-chip">
+          <span>Debt mins</span>
+          <strong id="total-minimums">$0</strong>
+        </article>
+        <article class="budget-chip">
+          <span>Cards</span>
+          <strong id="total-cards">0</strong>
+        </article>
+        <article class="budget-chip">
+          <span>Loans</span>
+          <strong id="total-loans">0</strong>
+        </article>
+        <article class="budget-chip">
+          <span>Net cash</span>
+          <strong id="net-cash-flow">$0</strong>
+        </article>
+      </section>
+
+      <div class="budget-page-grid">
+        <div class="budget-left-column">
+          <section class="panel budget-panels-row">
+            <div class="budget-panel-block">
+              <div class="panel-heading">
+                <h2>Income</h2>
+                <button class="btn btn-secondary" type="button" data-action="add" data-target="incomes">+ Income</button>
+              </div>
+              <table class="budget-table" aria-label="Income entries">
+                <thead>
+                  <tr>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="income-rows"></tbody>
+              </table>
+            </div>
+            <div class="budget-panel-block">
+              <div class="panel-heading">
+                <h2>Expenses</h2>
+                <button class="btn btn-secondary" type="button" data-action="add" data-target="expenses">+ Expense</button>
+              </div>
+              <table class="budget-table" aria-label="Expense entries">
+                <thead>
+                  <tr>
+                    <th>Expense</th>
+                    <th>Amount</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="expense-rows"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel budget-full-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Accounts</h2>
+                <p class="budget-panel-note">Manage credit cards and loans, then use extra cash to optimize payoff sequence.</p>
+              </div>
+              <div class="panel-controls">
+                <label class="budget-checkbox-label compact">
+                  <input type="checkbox" id="hide-empty-debts" checked /> Hide empty
+                </label>
+                <button class="btn btn-secondary" type="button" data-action="add" data-target="debts">+ Account</button>
+              </div>
+            </div>
+            <div class="budget-debt-table-wrap">
+              <table class="budget-table budget-debt-table" aria-label="Debt account entries">
+                <thead>
+                  <tr>
+                    <th>Account</th>
+                    <th>Type</th>
+                    <th>Balance</th>
+                    <th>APR</th>
+                    <th>Min</th>
+                    <th>Ignore</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="debt-rows"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel budget-controls-panel">
+            <div class="panel-heading">
+              <h2>Cash distribution</h2>
+            </div>
+            <div class="budget-controls-grid">
+              <label>
+                Extra cash
+                <input type="number" inputmode="decimal" step="10" min="0" value="0" id="extra-cash" />
+              </label>
+              <label>
+                Strategy
+                <select id="strategy">
+                  <option value="bestCashFlow">Best cash-flow impact</option>
+                  <option value="highestAPR">Highest APR first</option>
+                  <option value="snowball">Smallest balance first</option>
+                </select>
+              </label>
+            </div>
+            <p class="budget-save-note" id="save-status">Loading saved plan...</p>
+          </section>
+
+          <section class="panel budget-recommendation" aria-label="Debt repayment recommendation">
+            <h2>Recommendation</h2>
+            <div class="budget-results" id="recommendation-results"></div>
+            <div class="budget-results" id="allocation-results"></div>
+          </section>
+        </div>
+
+        <aside class="budget-right-column">
+          <section class="panel budget-yaml-panel" aria-label="YAML import and export">
+            <h2>YAML import</h2>
+            <p class="budget-panel-note">Paste YAML here or copy the template for LLM generation.</p>
+            <textarea id="yaml-input" class="budget-yaml-input" aria-label="Budget YAML input"></textarea>
+            <div class="budget-actions">
+              <button class="btn btn-primary" type="button" id="load-yaml">Load YAML</button>
+              <button class="btn btn-ghost" type="button" id="copy-template">Copy template</button>
+              <button class="btn btn-ghost" type="button" id="export-yaml">Export current plan</button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="wrap">
+      <p>
+        Built by Silly Goose Interactive Corp.
+        <a href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">GitHub</a>
+        and open-source projects released under MIT where noted.
+      </p>
+    </footer>
+
+    <script src="/epheme-idb.js"></script>
+    <script type="module" src="/budget.js"></script>
+  </body>
+</html>

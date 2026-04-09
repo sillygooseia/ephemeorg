@@ -13,6 +13,8 @@ service:
 
 env:
   PORT: "8791"
+  # REDIS_URL is injected at deploy time from secrets/tenants.json — never hardcode here.
+  REDIS_URL: ""
 
 resources:
   requests:

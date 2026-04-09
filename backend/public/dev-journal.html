@@ -1,0 +1,340 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>epheme-dev-journal.md — Epheme</title>
+    <meta
+      name="description"
+      content="Dev Journal: Essays and practical notes for developers building software that respects the people who use it."
+    />
+    <link rel="stylesheet" href="/dev-journal.css" />
+    <style>
+      html { height: 100%; }
+      body.journal { height: 100vh; overflow: hidden; }
+      .vsc-workbench { height: calc(100vh - 30px - 22px); overflow: hidden; }
+      .journal-sidebar { height: 100%; }
+      .vsc-editor-area { height: 100%; }
+      .journal-content { height: calc(100% - 35px - 80px); }
+    </style>
+  </head>
+  <body class="journal">
+
+    <!-- Title Bar -->
+    <header class="site-nav">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <span class="logo-badge"><img src="/epheme_logo_cropped.png" alt="Epheme" width="18" height="18" /></span>
+          <span>Epheme — Dev Journal</span>
+        </a>
+        <nav class="site-nav-links">
+          <a href="/docs/philosophy.html">Philosophy</a>
+          <a href="/">Home</a>
+          <a href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Workbench -->
+    <div class="vsc-workbench">
+
+      <!-- Activity Bar -->
+      <div class="vsc-activity-bar" aria-hidden="true">
+        <!-- Explorer -->
+        <div class="vsc-activity-icon active" title="Explorer">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-6-2v2H8V4h6zm6 16H8v-2h8a2 2 0 0 0 2-2V8h2v12z"/></svg>
+        </div>
+        <!-- Search -->
+        <div class="vsc-activity-icon" title="Search">
+          <svg viewBox="0 0 24 24"><path d="M9.5 3a6.5 6.5 0 0 1 5.13 10.47l4.7 4.7-1.41 1.41-4.7-4.7A6.5 6.5 0 1 1 9.5 3zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z"/></svg>
+        </div>
+        <!-- Source Control -->
+        <div class="vsc-activity-icon" title="Source Control">
+          <svg viewBox="0 0 24 24"><path d="M7 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm10 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 14a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM7 7v2a5 5 0 0 0 5 5h1v2h-1a7 7 0 0 1-7-7V7h2zm10 6v2h-2V7h2v6z"/></svg>
+        </div>
+      </div>
+
+      <!-- Sidebar (Explorer) -->
+      <aside class="journal-sidebar">
+        <div class="vsc-explorer-title">Explorer</div>
+
+        <div class="journal-box journal-nav">
+          <div class="vsc-explorer-title" style="padding: 0 0 4px;">epheme-dev-journal</div>
+          <ul class="journal-nav-tree">
+            <li class="nav-year">
+              <p class="nav-year-label">2026</p>
+              <ul>
+                <li class="nav-month">
+                  <p class="nav-month-label">April</p>
+                  <div class="nav-day">
+                    <p class="nav-day-label">9</p>
+                    <ul>
+                      <li><a href="#entry-1">entry-1-where-software-drifted.md</a></li>
+                      <li><a href="#entry-2">entry-2-how-the-poll-works.md</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="vsc-sidebar-section">
+          <div class="vsc-section-header">Tags</div>
+          <ul class="vsc-tag-list">
+            <li>local-first</li>
+            <li>privacy</li>
+            <li>ownership</li>
+            <li>architecture</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Editor Area -->
+      <div class="vsc-editor-area">
+
+        <!-- Tab Bar -->
+        <div class="vsc-tabs" role="tablist">
+          <a href="#entry-1" class="vsc-tab active" role="tab" aria-selected="true">
+            <span class="vsc-tab-icon">📄</span>
+            where-software-drifted.md
+            <span class="vsc-tab-close">✕</span>
+          </a>
+          <a href="#entry-2" class="vsc-tab" role="tab" aria-selected="false">
+            <span class="vsc-tab-icon">📄</span>
+            how-the-poll-works.md
+            <span class="vsc-tab-close">✕</span>
+          </a>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="journal-content">
+
+          <!-- Summary panel -->
+          <div class="note-summary">
+            <article class="journal-note">
+              <p class="note-label">entry-1</p>
+              <h2>Where Software Drifted, and Why Epheme Pushes Back</h2>
+              <p>On accountability, normalization, and building software that gives control back to the people who use it.</p>
+            </article>
+            <article class="journal-note">
+              <p class="note-label">entry-2</p>
+              <h2>How the Poll Works &mdash; No Account, No Email, Just Epheme</h2>
+              <p>A practical walkthrough of the vote feature: stable device identity via <code>@epheme/core</code>, Redis daily windows, and zero PII stored.</p>
+            </article>
+          </div>
+
+          <!-- Date separator -->
+          <div class="journal-date-heading" id="2026-04-09"><time datetime="2026-04-09">2026-04-09</time></div>
+
+          <!-- Entry 1 -->
+          <article class="journal-entry" id="entry-1">
+            <div class="entry-gutter" aria-hidden="true">
+              <div class="entry-gutter-line">1</div>
+              <div class="entry-gutter-line">2</div>
+              <div class="entry-gutter-line">3</div>
+              <div class="entry-gutter-line">4</div>
+              <div class="entry-gutter-line">5</div>
+              <div class="entry-gutter-line">6</div>
+              <div class="entry-gutter-line">7</div>
+              <div class="entry-gutter-line">8</div>
+              <div class="entry-gutter-line">9</div>
+              <div class="entry-gutter-line">10</div>
+              <div class="entry-gutter-line">11</div>
+              <div class="entry-gutter-line">12</div>
+              <div class="entry-gutter-line">13</div>
+              <div class="entry-gutter-line">14</div>
+              <div class="entry-gutter-line">15</div>
+              <div class="entry-gutter-line">16</div>
+              <div class="entry-gutter-line">17</div>
+              <div class="entry-gutter-line">18</div>
+              <div class="entry-gutter-line">19</div>
+              <div class="entry-gutter-line">20</div>
+              <div class="entry-gutter-line">21</div>
+              <div class="entry-gutter-line">22</div>
+              <div class="entry-gutter-line">23</div>
+              <div class="entry-gutter-line">24</div>
+              <div class="entry-gutter-line">25</div>
+              <div class="entry-gutter-line">26</div>
+              <div class="entry-gutter-line">27</div>
+              <div class="entry-gutter-line">28</div>
+              <div class="entry-gutter-line">29</div>
+              <div class="entry-gutter-line">30</div>
+            </div>
+            <div class="entry-body">
+              <p class="entry-meta">April 9, 2026 &middot; Epheme Dev Journal</p>
+              <h2>Dev Journal #1 &mdash; Where Software Drifted, and Why Epheme Pushes Back</h2>
+
+              <h3>The Problem We Keep Pretending Isn&rsquo;t a Problem</h3>
+              <p>Over the last decade, software quietly shifted from something we <em>used</em> to something that <em>uses us</em>. Not through a single decision, but through a thousand small ones:</p>
+              <ul>
+                <li>every &ldquo;Sign in with&hellip;&rdquo; button</li>
+                <li>every background analytics SDK</li>
+                <li>every cloud-only feature</li>
+                <li>every &ldquo;just create an account to continue&rdquo;</li>
+                <li>every service that stores more than it needs</li>
+                <li>every breach that exposes data that never should&rsquo;ve existed</li>
+              </ul>
+              <p>Individually, these choices feel harmless. Collectively, they&rsquo;ve reshaped the entire landscape of computing. We now live in a world where most tools require identity, most data lives on someone else&rsquo;s servers, most interactions are logged or monetized, most software is rented rather than owned, and most risk is pushed onto the user, not the vendor.</p>
+              <p>This isn&rsquo;t alarmism. It&rsquo;s the observable trajectory of the industry. And it&rsquo;s worth asking: <strong>How much of this was inevitable, and how much was simply convenient?</strong></p>
+
+              <h3>The Hidden Cost of Convenience</h3>
+              <p>Centralized, account-based SaaS solved real problems: syncing, collaboration, distribution, updates. But it also created new ones we rarely acknowledge:</p>
+              <ul>
+                <li><strong>Attack surface expansion</strong> &mdash; every cloud endpoint is a new doorway</li>
+                <li><strong>Data accumulation</strong> &mdash; information piles up faster than it can be secured</li>
+                <li><strong>Identity sprawl</strong> &mdash; one compromised account becomes a skeleton key</li>
+                <li><strong>Vendor lock-in</strong> &mdash; switching tools becomes a migration project</li>
+                <li><strong>Opaque behavior</strong> &mdash; users can&rsquo;t see what&rsquo;s collected or why</li>
+                <li><strong>Permanent history</strong> &mdash; nothing is ever truly deleted</li>
+              </ul>
+              <p>We traded sovereignty for convenience, often without realizing it. The pattern is clear: <strong>when software centralizes, users lose control.</strong></p>
+
+              <h3>Remember When Software Stayed on Your Machine?</h3>
+              <p>Local software wasn&rsquo;t perfect, but it had one undeniable advantage: <strong>your data stayed with you.</strong></p>
+              <p>If something broke, it broke locally. If something leaked, it leaked nowhere. If a company shut down, your tools didn&rsquo;t vanish with it. If you wanted privacy, you simply disconnected from the network.</p>
+              <p>Local-first computing wasn&rsquo;t nostalgic &mdash; it was <em>sane</em>. We&rsquo;ve drifted far from that sanity.</p>
+
+              <h3>Why Epheme Exists</h3>
+              <p>Epheme isn&rsquo;t a rebellion. It&rsquo;s a correction. A reminder that software can still be local-first, ephemeral, accountless, privacy-respecting, developer-friendly, non-extractive, and simple by design.</p>
+              <p>Epheme exists because developers deserve tools that don&rsquo;t demand identity, don&rsquo;t store unnecessary data, and don&rsquo;t turn every interaction into a liability. We&rsquo;re not trying to rebuild the past &mdash; we&rsquo;re trying to restore the parts that worked and combine them with what we&rsquo;ve learned since.</p>
+
+              <h3>The Real Risk: Normalization</h3>
+              <p>The biggest danger isn&rsquo;t surveillance, breaches, or lock-in. It&rsquo;s the normalization of all three.</p>
+              <p>When every tool requires an account, we stop questioning it. When every service logs behavior, we stop noticing. When every product is cloud-dependent, we stop expecting autonomy. Epheme&rsquo;s job is to push back on that normalization &mdash; not with fear, but with alternatives.</p>
+
+              <h3>A Better Path Forward</h3>
+              <blockquote>Empowered developers through empowered software.</blockquote>
+              <p>Software should give control, not take it. It should reduce risk, not introduce it. It should disappear when you&rsquo;re done, not follow you around.</p>
+              <p>This journal will document how we build toward that vision &mdash; the decisions, the tradeoffs, the experiments, and the philosophy behind each tool. Not as a manifesto. Not as a marketing channel. But as a record of how we&rsquo;re trying to build software that respects the people who use it.</p>
+
+              <h3>Closing Thought</h3>
+              <p>We don&rsquo;t need to burn down SaaS. We just need to remember that it&rsquo;s not the only way to build.</p>
+              <p>Local-first isn&rsquo;t nostalgia. Ephemeral isn&rsquo;t a gimmick. Privacy isn&rsquo;t a luxury. Sovereignty isn&rsquo;t a niche. They&rsquo;re foundations worth rebuilding on.</p>
+              <p>This is where Epheme begins.</p>
+            </div>
+          </article>
+
+          <!-- Entry 2 -->
+          <article class="journal-entry" id="entry-2">
+            <div class="entry-gutter" aria-hidden="true">
+              <div class="entry-gutter-line">1</div>
+              <div class="entry-gutter-line">2</div>
+              <div class="entry-gutter-line">3</div>
+              <div class="entry-gutter-line">4</div>
+              <div class="entry-gutter-line">5</div>
+              <div class="entry-gutter-line">6</div>
+              <div class="entry-gutter-line">7</div>
+              <div class="entry-gutter-line">8</div>
+              <div class="entry-gutter-line">9</div>
+              <div class="entry-gutter-line">10</div>
+              <div class="entry-gutter-line">11</div>
+              <div class="entry-gutter-line">12</div>
+              <div class="entry-gutter-line">13</div>
+              <div class="entry-gutter-line">14</div>
+              <div class="entry-gutter-line">15</div>
+              <div class="entry-gutter-line">16</div>
+              <div class="entry-gutter-line">17</div>
+              <div class="entry-gutter-line">18</div>
+              <div class="entry-gutter-line">19</div>
+              <div class="entry-gutter-line">20</div>
+              <div class="entry-gutter-line">21</div>
+              <div class="entry-gutter-line">22</div>
+              <div class="entry-gutter-line">23</div>
+              <div class="entry-gutter-line">24</div>
+              <div class="entry-gutter-line">25</div>
+              <div class="entry-gutter-line">26</div>
+              <div class="entry-gutter-line">27</div>
+              <div class="entry-gutter-line">28</div>
+              <div class="entry-gutter-line">29</div>
+              <div class="entry-gutter-line">30</div>
+            </div>
+            <div class="entry-body">
+              <p class="entry-meta">April 9, 2026 &middot; Epheme Dev Journal</p>
+              <h2>Dev Journal #2 &mdash; How the Poll Works: No Account, No Email, Just Epheme</h2>
+
+              <h3>The Problem With &ldquo;Just Log In&rdquo;</h3>
+              <p>Most sites that want feedback from you need an account first. Sometimes it&rsquo;s for deduplication. Sometimes it&rsquo;s for analytics. Sometimes it&rsquo;s just because the framework made it easy to add a login wall and nobody questioned it.</p>
+              <p>The poll on the Epheme homepage doesn&rsquo;t do any of that. No account. No email. No cookie notice. You click a button and your vote counts &mdash; once per device per day. Here&rsquo;s how that actually works.</p>
+
+              <h3>Device Identity Without an Account</h3>
+              <p>The browser side of the poll is built on <code>@epheme/core</code>, the same library that powers the Epheme Hub. The key primitive is <code>EphemeDevice</code> &mdash; a class that knows how to establish and maintain a stable device identity without requiring any form of authentication.</p>
+              <p>When the poll loads, it calls <code>_device.getStableId(key)</code>. That method follows a deliberate priority chain:</p>
+              <ol>
+                <li><strong>Existing localStorage value</strong> &mdash; if this device has voted before under this key, return that same UUID. Continuity matters: an identity that flip-flops isn&rsquo;t useful.</li>
+                <li><strong>Hub-registered deviceId</strong> &mdash; if the visitor has an active Epheme Hub device (loaded from IndexedDB), use that ID. The device already has a stable identity, so we should use it.</li>
+                <li><strong>Generate a new UUID</strong> &mdash; if nothing else applies, create a cryptographically random UUID via <code>crypto.randomUUID()</code> and persist it to localStorage.</li>
+              </ol>
+              <p>That priority order matters. We check localStorage <em>before</em> the Hub ID. This means if someone voted anonymously yesterday and then connected to a Hub today, their anonymous vote isn&rsquo;t orphaned &mdash; the stored UUID takes precedence until they explicitly clear local storage.</p>
+
+              <h3>What Actually Gets Sent</h3>
+              <p>The poll client sends one of two things depending on the device state:</p>
+              <ul>
+                <li>If the device is Hub-registered: an <code>Authorization: Bearer &lt;jwt&gt;</code> header. The server verifies the JWT and extracts the device ID from it &mdash; no ID spoofing possible.</li>
+                <li>If the device is anonymous: an <code>X-Device-Id</code> header with the stable UUID from localStorage.</li>
+              </ul>
+              <p>In both cases, no name, no email, no IP address is stored against the vote. The device ID is a random UUID &mdash; it identifies a device for deduplication, nothing more.</p>
+
+              <h3>Server Side: Redis With a Daily Window</h3>
+              <p>On the server, each vote lands in Redis under two keys:</p>
+              <ul>
+                <li><code>ephemeorg:votes:up:&lt;dateStr&gt;</code> and <code>ephemeorg:votes:down:&lt;dateStr&gt;</code> &mdash; counters for the current day, with a 25-hour TTL so they expire cleanly.</li>
+                <li><code>ephemeorg:voted:&lt;dateStr&gt;:&lt;deviceId&gt;</code> &mdash; a per-device flag set when a vote is cast. Also expires in 25 hours.</li>
+              </ul>
+              <p>The TTL means counts reset daily without any cron job or cleanup task. Redis just handles it. The per-device key means each device can cast exactly one vote per day &mdash; a second request returns <code>409 Already voted today</code>.</p>
+              <p>The date string is computed in UTC so &ldquo;midnight&rdquo; is consistent across timezones. If Redis is unavailable, the API responds with a graceful unavailable state rather than throwing a 500 &mdash; the poll degrades politely.</p>
+
+              <h3>Why Not Just Use Cookies?</h3>
+              <p>Cookies require a notice in most jurisdictions. They travel with every request, including ones where we don&rsquo;t need them. They can be scoped in confusing ways, and they&rsquo;re cleared by privacy tools that users have every right to run.</p>
+              <div class="callout-compromise">
+                <p><strong>This is a compromise we&rsquo;re making consciously.</strong> localStorage is clearable, tab-scoped, and blocked by some browsers in private mode. A determined person can vote twice. We&rsquo;re not pretending otherwise. The goal isn&rsquo;t ironclad deduplication &mdash; it&rsquo;s a reasonable signal from real visitors with minimal friction and zero data collection. For a daily poll on a dev site, that trade-off is worth it.</p>
+              </div>
+
+              <h3>The Library Does the Work</h3>
+              <p>One thing I want to call out: the poll client in <code>src/vote.js</code> doesn&rsquo;t implement any of the UUID generation or identity fallback logic. That lives in <code>@epheme/core/browser</code>. That&rsquo;s intentional.</p>
+              <p>When I first wired this up, the draft used <code>crypto.randomUUID()</code> directly and manually read from IndexedDB. It worked, but it was the same pattern I&rsquo;d seen in three other places across the codebase. Each one had slightly different edge cases handled slightly differently. The right move was to push that logic into the library once, test it there, and have every consumer just call <code>getStableId()</code>.</p>
+              <p>That&rsquo;s the version of &ldquo;build a library&rdquo; that&rsquo;s actually worth doing &mdash; not extracting things prematurely, but recognizing when the same subtle logic has appeared enough times that it needs a single canonical home.</p>
+
+              <h3>No PII. Seriously.</h3>
+              <p>The only data that touches the server from a vote request:</p>
+              <ul>
+                <li>The vote direction (<code>&ldquo;up&rdquo;</code> or <code>&ldquo;down&rdquo;</code>)</li>
+                <li>A device UUID (random, not linked to any real-world identity)</li>
+                <li>The current UTC date (used to compute the window key)</li>
+              </ul>
+              <p>That&rsquo;s it. Nothing is logged with device IDs attached. Nothing is sold or shared. The Redis keys expire. There is no database table with a row per vote. There is no analytics pipeline. There is no &ldquo;we may use this to improve your experience.&rdquo;</p>
+              <p>This is what accountless, privacy-respecting software looks like in practice. It shouldn&rsquo;t be novel. But here we are.</p>
+            </div>
+          </article>
+
+        </div><!-- /journal-content -->
+      </div><!-- /vsc-editor-area -->
+    </div><!-- /vsc-workbench -->
+
+    <!-- Status Bar -->
+    <footer class="vsc-status-bar" aria-label="Status Bar">
+      <div class="status-left">
+        <div class="status-item status-branch">main</div>
+        <div class="status-item">epheme-dev-journal</div>
+      </div>
+      <div class="status-right">
+        <div class="status-item">Markdown</div>
+        <div class="status-item">UTF-8</div>
+        <div class="status-item">2 entries</div>
+        <div class="status-item">Ln 1, Col 1</div>
+      </div>
+    </footer>
+
+  </body>
+  <script>
+    // Tab active state follows hash
+    function updateTabs() {
+      const hash = location.hash || '#entry-1';
+      document.querySelectorAll('.vsc-tab').forEach(t => {
+        t.classList.toggle('active', t.getAttribute('href') === hash);
+      });
+    }
+    window.addEventListener('hashchange', updateTabs);
+    updateTabs();
+  </script>
+</html>

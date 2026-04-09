@@ -11,6 +11,24 @@ RUN echo "@epheme:registry=https://npm.sillygooseia.com" >> .npmrc && \
     npm ci --omit=dev && \
     rm -f .npmrc
 
+FROM node:22-alpine AS client-build
+
+ARG NPM_TOKEN
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN echo "@epheme:registry=https://npm.sillygooseia.com" >> .npmrc && \
+    echo "//npm.sillygooseia.com/:_authToken=${NPM_TOKEN}" >> .npmrc && \
+    npm ci && \
+    rm -f .npmrc
+
+COPY src ./src
+
+RUN node_modules/.bin/esbuild src/vote.js \
+    --bundle --outfile=public/vote.js --platform=browser --format=iife
+
 FROM node:22-alpine
 
 WORKDIR /app
@@ -24,6 +42,7 @@ RUN rm -rf /usr/local/lib/node_modules/npm \
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+COPY --from=client-build /app/public/vote.js ./public/vote.js
 
 EXPOSE 8791
 

@@ -1,150 +1,486 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Epheme | Open Source MIT Culture</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Epheme — Open software for builders</title>
     <meta
       name="description"
-      content="Epheme is a home for local-first, privacy-respecting, ephemeral software built in the open under MIT culture."
+      content="Epheme is a no-nonsense space for developers who want open-source, low-noise software without the SaaS clutter."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/app.css" />
+    <style>
+      :root {
+        color-scheme: dark;
+        color: #e5e9f0;
+        background: #090b0d;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.08), transparent 28%), #090b0d;
+        color: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .hero-section {
+        position: relative;
+        min-height: 62vh;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+        background: #090b0d;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('/ben_hero.png') left center / cover no-repeat;
+        z-index: 0;
+      }
+
+      .hero-section::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to left, rgba(9,11,13,0.72) 30%, rgba(9,11,13,0.1) 70%);
+        z-index: 1;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 42px 24px 56px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .hero-text {
+        max-width: 48ch;
+        text-align: left;
+        background: rgba(9,11,13,0.38);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 32px 36px;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 48px 24px 60px;
+      }
+
+      .hero-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .logo-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%, rgba(0,0,0,0.04) 100%),
+          #ede9e2;
+        border-radius: 10px;
+        padding: 7px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
+      }
+
+      .hero-brand img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .eyebrow {
+        color: #9baabb;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 0.76rem;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3rem, 5vw, 4.4rem);
+        line-height: 0.95;
+        letter-spacing: -0.06em;
+        max-width: 11ch;
+        color: #ffffff;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.7);
+      }
+
+      .intro {
+        margin: 24px 0 0;
+        max-width: 68ch;
+        color: #b0b9c8;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: #e5e9f0;
+        font-weight: 700;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .button:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .poll-card {
+        display: grid;
+        gap: 18px;
+        margin-top: 42px;
+        padding: 24px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .poll-eyebrow {
+        color: #7b8a9a;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        margin: 0;
+      }
+
+      .poll-card h2 {
+        margin: 0;
+        font-size: clamp(1.55rem, 2.5vw, 2rem);
+        line-height: 1.1;
+      }
+
+      .poll-card p {
+        margin: 0;
+        color: #b0b9c8;
+      }
+
+      .poll-actions {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .poll-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 18px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: #e5e9f0;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .poll-button:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .poll-button.selected {
+        background: rgba(124, 167, 255, 0.18);
+        border-color: rgba(124, 167, 255, 0.4);
+      }
+
+      .poll-button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .poll-footer {
+        display: grid;
+        gap: 10px;
+      }
+
+      .poll-counts {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .poll-counts span {
+        color: #b0b9c8;
+        font-size: 0.95rem;
+      }
+
+      .poll-status {
+        color: #d7dee8;
+        font-size: 0.95rem;
+      }
+
+      .poll-counts strong {
+        color: #e5e9f0;
+      }
+
+      .poll-note {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #7ca7ff;
+        opacity: 0.75;
+      }
+
+      .poll-note a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .poll-note a:hover {
+        opacity: 1;
+      }
+
+      .section {
+        margin-top: 56px;
+      }
+
+      .section h2 {
+        margin: 0 0 20px;
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #8d9aaa;
+      }
+
+      .section p {
+        margin: 0;
+        color: #9ea9b9;
+      }
+
+      .cards {
+        display: grid;
+        gap: 14px;
+      }
+
+      .card {
+        padding: 20px 22px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 10px;
+        color: #f8fbff;
+      }
+
+      .card p {
+        margin: 0;
+        color: #9aa6b8;
+      }
+
+      .rule {
+        margin: 46px 0 0;
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer {
+        margin-top: 34px;
+        color: #7b8a9a;
+        font-size: 0.95rem;
+      }
+
+      .cards--row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-nav {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 18px;
+      }
+
+      .footer-nav a {
+        color: #8d9aaa;
+      }
+
+      .footer-nav a:hover {
+        color: #e5e9f0;
+      }
+
+      @media (max-width: 640px) {
+        .hero-section {
+          min-height: unset;
+        }
+
+        .hero-section::before {
+          background-position: left top;
+        }
+
+        .hero-section::after {
+          background: linear-gradient(to top, rgba(9,11,13,0.82) 20%, rgba(9,11,13,0.3) 70%);
+        }
+
+        .hero-inner {
+          justify-content: flex-start;
+        }
+
+        .hero-text {
+          max-width: 100%;
+        }
+
+        .hero-inner {
+          padding: 30px 18px 44px;
+        }
+
+        .page {
+          padding: 36px 18px 48px;
+        }
+
+        .actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .cards--row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="grain" aria-hidden="true"></div>
-    <div class="stage" aria-hidden="true">
-      <span class="orb orb-1"></span>
-      <span class="orb orb-2"></span>
+    <section class="hero-section">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-brand">
+            <span class="logo-badge"><img src="/epheme_logo_cropped.png" alt="Epheme logo" /></span>
+            <span class="eyebrow">Epheme</span>
+          </div>
+          <h1>I'm tired of the SaaS noise.</h1>
+          <p class="intro">
+            Software used to be a tool you owned. Now it feels like just another marketing platform. Epheme is what I want
+            back: open code, simple defaults, and software that serves you instead of tracking you.
+          </p>
+
+          <div class="actions">
+            <a class="button" href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">View the repo</a>
+            <a class="button" href="/docs/philosophy.html">Philosophy</a>
+            <a class="button" href="/dev-journal.html">Dev Journal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="page">
+      <section class="poll-card" id="vote-poll">
+        <p class="poll-eyebrow">Quick poll</p>
+        <h2>Are you tired of the SaaS?</h2>
+        <p>Vote once per device. Counts reset daily and are kept only as short-term signal.</p>
+        <div class="poll-actions">
+          <button class="poll-button" type="button" data-vote="up">Yes, Up vote</button>
+          <button class="poll-button" type="button" data-vote="down">No, Down vote</button>
+        </div>
+        <div class="poll-footer">
+          <div class="poll-status" id="poll-status">Loading poll…</div>
+          <div class="poll-counts">
+            <span>Up: <strong id="poll-count-up">—</strong></span>
+            <span>Down: <strong id="poll-count-down">—</strong></span>
+            <span>Since: <strong id="poll-reset">—</strong></span>
+          </div>
+          <p class="poll-note"><a href="/dev-journal.html#entry-2">How this works — no account, no email</a></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Why I built this</h2>
+        <div class="cards">
+          <div class="card">
+            <strong>Minimal defaults</strong>
+            <p>I want code that starts small, stays small, and doesn’t drag in half the internet.</p>
+          </div>
+          <div class="card">
+            <strong>Privacy first</strong>
+            <p>I don't want tools that watch me or hoard my data.</p>
+          </div>
+          <div class="card">
+            <strong>Open, not locked</strong>
+            <p>If it’s worth using, it should be worth reading and changing.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Software like it used to be</h2>
+        <p>
+          I’m done with the storytelling and the funnels. This is for people who want practical tools that are easy to
+          understand, easy to host, and easy to own.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Core values</h2>
+        <div class="cards cards--row">
+          <div class="card">
+            <strong>Local control</strong>
+            <p>Your device is enough. Use the network only when it adds actual value.</p>
+          </div>
+          <div class="card">
+            <strong>Less noise</strong>
+            <p>No dashboards, no growth metrics, no nonsense.</p>
+          </div>
+          <div class="card">
+            <strong>Practical openness</strong>
+            <p>Source you can inspect, use, and modify without permission.</p>
+          </div>
+        </div>
+      </section>
+
+      <hr class="rule" />
+
+      <footer class="footer">
+        <nav class="footer-nav">
+          <a href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="/docs/philosophy.html">Philosophy</a>
+          <a href="/dev-journal.html">Dev Journal</a>
+        </nav>
+        <p>Built for people who write code, not for platforms that want to own it.</p>
+      </footer>
     </div>
-
-    <header class="hero wrap">
-      <div class="hero-top">
-        <p class="kicker">E P H E M E</p>
-        <figure class="hero-brand" aria-label="Epheme logo">
-          <img class="hero-logo" src="/epheme_logo_cropped.png" alt="Epheme infinity logo" />
-        </figure>
-      </div>
-      <h1>Welcome to Epheme</h1>
-      <p class="subhead">A home for lighter software and the people who prefer it.</p>
-      <p class="lede">
-        We build in the open with MIT-first values: local-first tools, no-account flows, and systems
-        that let go when the work is done.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">Explore on GitHub</a>
-        <a class="btn btn-ghost" href="https://www.reddit.com/r/epheme/" target="_blank" rel="noreferrer">Join us on Reddit</a>
-        <a class="btn btn-ghost" href="/blog">Read our Blog</a>
-      </div>
-      <aside class="license-banner" aria-label="Open source culture notice">
-        <p>
-          Open source by default.
-          <strong>MIT culture:</strong> use it, remix it, ship it, share it.
-        </p>
-      </aside>
-    </header>
-
-    <main class="wrap">
-      <section class="panel" id="what-is">
-        <h2>What Epheme Is</h2>
-        <p>
-          Epheme is a vision for software that respects people more than metrics. A place for developers who
-          feel the weight of modern SaaS and want something quieter, simpler, and more sovereign.
-        </p>
-        <p>
-          We are growing this into a collection of open resources, reference projects, and practical patterns
-          for building privacy-focused software with less platform baggage.
-        </p>
-      </section>
-
-      <section class="panel" id="why">
-        <h2>Why This Exists</h2>
-        <p>
-          Most software today assumes it needs to know you: your name, your history, your behavior. Epheme is a
-          reaction to that.
-        </p>
-        <ul class="values-list">
-          <li>local-first</li>
-          <li>privacy-respecting</li>
-          <li>ephemeral</li>
-          <li>playful</li>
-          <li>unburdened by corporate gravity</li>
-        </ul>
-        <p class="line">Not everything needs to scale. Not everything needs to remember.</p>
-      </section>
-
-      <section class="panel" id="find-here">
-        <h2>What You Will Find Here</h2>
-        <p>
-          We are building a collection of resources for developers who want to build software that is
-          privacy-first, local-first, and free of unnecessary platform weight.
-        </p>
-        <p>
-          This is a work in progress. The ideas are here. The tools and guides are being shaped over time
-          — in the open, without a roadmap or a deadline.
-        </p>
-        <p class="coming-soon-note">Check back as things take shape, or join the conversation on Reddit.</p>
-      </section>
-
-      <section class="panel" id="principles">
-        <h2>How We Build</h2>
-        <ol class="principles">
-          <li>
-            <h3>Local First</h3>
-            <p>Your device is enough. No cloud unless absolutely necessary.</p>
-          </li>
-          <li>
-            <h3>No Accounts</h3>
-            <p>If a tool needs your identity, it probably is not an Epheme tool.</p>
-          </li>
-          <li>
-            <h3>No Tracking</h3>
-            <p>We do not watch, measure, or profile. We build tools, not funnels.</p>
-          </li>
-          <li>
-            <h3>Ephemeral by Default</h3>
-            <p>When you are done, the tool should let go. No history. No baggage.</p>
-          </li>
-          <li>
-            <h3>Playful, Not Noisy</h3>
-            <p>Warm, human, developer-friendly. Never corporate.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="panel" id="not">
-        <h2>What Epheme Is Not</h2>
-        <ul class="not-list">
-          <li>a startup</li>
-          <li>a growth engine</li>
-          <li>a platform chasing lock-in</li>
-          <li>a brand hunting attention</li>
-          <li>a place for heavy identity systems</li>
-        </ul>
-        <p>If it feels clingy, extractive, or overbuilt, it is not Epheme.</p>
-      </section>
-
-      <section class="panel invitation" id="invitation">
-        <h2>The Invitation</h2>
-        <p>
-          Epheme is open to anyone building software that is privacy-first, local-first, and human-scale.
-          Bring what you are making. Learn from shared resources. Help shape what better software can feel like.
-        </p>
-        <p class="build-line">Build freely. Leave no trace.</p>
-      </section>
-    </main>
-
-    <footer class="wrap">
-      <p>
-        Built by Silly Goose Interactive Corp.
-        <a href="https://github.com/sillygooseia/epheme" target="_blank" rel="noreferrer">GitHub</a>
-        and open-source projects released under MIT where noted.
-      </p>
-    </footer>
+    <script src="/vote.js"></script>
   </body>
 </html>

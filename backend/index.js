@@ -1,13 +1,120 @@
-require("dotenv").config();
 const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require("express");
 const cors = require("cors");
+const Redis = require("ioredis");
 const { createLogger, requestLogger: _requestLogger } = require("@epheme/core/logger");
+const { createDeviceRegistry } = require("@epheme/core/deviceRegistry");
 const { getAllPosts, getPostBySlug } = require("./content");
 
 const app = express();
+
+let _redis = null;
+let _redisReady = false;
+
+function getRedis() {
+  if (!_redis) {
+    _redis = new Redis(process.env.REDIS_URL || "redis://127.0.0.1:6379", {
+      connectTimeout: 2000,
+      maxRetriesPerRequest: 1,
+      retryStrategy: (times) => (times < 3 ? Math.min(times * 500, 2000) : null),
+    });
+    _redis.on("ready", () => { _redisReady = true; });
+    _redis.on("error", () => { _redisReady = false; });
+    _redis.on("close", () => { _redisReady = false; });
+  }
+  return _redis;
+}
+
+function redisAvailable() {
+  return _redis && _redisReady;
+}
+const voteRegistry = createDeviceRegistry({ deviceJwtSecret: process.env.DEVICE_JWT_SECRET });
+const VOTE_WINDOW_SECONDS = 24 * 60 * 60;
+const VOTE_UP_KEY = "votes:up";
+const VOTE_DOWN_KEY = "votes:down";
+const VOTE_RESET_KEY = "votes:resetAt";
+const DEVICE_VOTE_KEY_PREFIX = "votes:device:";
+
+function normalizeDeviceId(rawId) {
+  if (!rawId || typeof rawId !== "string") return null;
+  const trimmed = rawId.trim();
+  if (!trimmed) return null;
+  return trimmed;
+}
+
+function extractDeviceId(req) {
+  const authHeader = req.get("Authorization") || "";
+  const bearer = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : null;
+  if (bearer) {
+    const payload = voteRegistry.verifyDeviceJWT(bearer);
+    if (payload?.device_id) {
+      return normalizeDeviceId(payload.device_id);
+    }
+  }
+  return normalizeDeviceId(req.get("X-Device-Id") || req.get("x-device-id"));
+}
+
+async function ensureVoteWindow() {
+  const redis = getRedis();
+  const resetAt = await redis.get(VOTE_RESET_KEY);
+  if (resetAt) {
+    return Number(resetAt);
+  }
+
+  const now = Date.now();
+  await redis.multi()
+    .set(VOTE_UP_KEY, 0, "EX", VOTE_WINDOW_SECONDS)
+    .set(VOTE_DOWN_KEY, 0, "EX", VOTE_WINDOW_SECONDS)
+    .set(VOTE_RESET_KEY, String(now), "EX", VOTE_WINDOW_SECONDS)
+    .exec();
+  return now;
+}
+
+async function getVoteState(deviceId) {
+  const redis = getRedis();
+  let [up, down, resetAt] = await redis.mget(VOTE_UP_KEY, VOTE_DOWN_KEY, VOTE_RESET_KEY);
+  if (!resetAt) {
+    resetAt = String(await ensureVoteWindow());
+    up = up ?? "0";
+    down = down ?? "0";
+  }
+
+  const result = {
+    up: Number(up || 0),
+    down: Number(down || 0),
+    resetAt: Number(resetAt) || Date.now(),
+  };
+
+  if (deviceId) {
+    const deviceVote = await redis.get(`${DEVICE_VOTE_KEY_PREFIX}${deviceId}`);
+    if (deviceVote === "up" || deviceVote === "down") {
+      result.deviceVote = deviceVote;
+    }
+  }
+
+  return result;
+}
+
+async function recordVote(deviceId, vote) {
+  const redis = getRedis();
+  const existing = await redis.get(`${DEVICE_VOTE_KEY_PREFIX}${deviceId}`);
+  const tx = redis.multi();
+  if (existing && existing !== vote) {
+    tx.decr(existing === "up" ? VOTE_UP_KEY : VOTE_DOWN_KEY);
+  }
+  if (!existing || existing !== vote) {
+    tx.incr(vote === "up" ? VOTE_UP_KEY : VOTE_DOWN_KEY);
+    tx.set(`${DEVICE_VOTE_KEY_PREFIX}${deviceId}`, vote, "EX", VOTE_WINDOW_SECONDS);
+  }
+  await tx.exec();
+}
+
 const PORT = Number(process.env.PORT || 8791);
 const log = createLogger({ service: "ephemeorg-backend" });
+
+// Eagerly attempt Redis connection so it is ready when first vote arrives.
+getRedis();
 
 app.use(cors());
 app.use(express.json());
@@ -132,6 +239,10 @@ app.get("/blog/:slug", (req, res) => {
   res.send(renderBlogPost(post));
 });
 
+app.get("/budget", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "budget.html"));
+});
+
 app.get("/api/blog", (_req, res) => {
   const posts = getAllPosts().map(({ html, ...meta }) => meta);
   res.json(posts);
@@ -143,6 +254,46 @@ app.get("/api/blog/:slug", (req, res) => {
     return res.status(404).json({ error: "Post not found" });
   }
   res.json(post);
+});
+
+app.get("/api/votes", async (req, res) => {
+  if (!redisAvailable()) {
+    return res.json({ up: 0, down: 0, resetAt: null, unavailable: true });
+  }
+  try {
+    const deviceId = extractDeviceId(req);
+    const state = await getVoteState(deviceId);
+    res.json(state);
+  } catch (error) {
+    log.error({ err: error.message }, "Failed to load vote state");
+    res.json({ up: 0, down: 0, resetAt: null, unavailable: true });
+  }
+});
+
+app.post("/api/votes", async (req, res) => {
+  if (!redisAvailable()) {
+    return res.status(503).json({ error: "Vote storage not available right now." });
+  }
+
+  const vote = req.body?.vote;
+  if (vote !== "up" && vote !== "down") {
+    return res.status(400).json({ error: "Vote must be 'up' or 'down'." });
+  }
+
+  const deviceId = extractDeviceId(req);
+  if (!deviceId) {
+    return res.status(400).json({ error: "Device identity is required." });
+  }
+
+  try {
+    await ensureVoteWindow();
+    await recordVote(deviceId, vote);
+    const state = await getVoteState(deviceId);
+    res.json(state);
+  } catch (error) {
+    log.error({ err: error.message }, "Failed to record vote");
+    res.status(503).json({ error: "Unable to record vote right now." });
+  }
 });
 
 app.get("/healthz", (_req, res) => res.sendStatus(200));

@@ -1,0 +1,693 @@
+﻿/* ── VS Code Dev Journal theme ────────────────────────────────────────────── */
+/* VSC color tokens */
+:root {
+  --vsc-bg:           #1e1e1e;
+  --vsc-sidebar-bg:   #252526;
+  --vsc-activity-bg:  #333333;
+  --vsc-tab-bg:       #2d2d2d;
+  --vsc-tab-active:   #1e1e1e;
+  --vsc-tab-border:   #252526;
+  --vsc-tab-active-border: #007acc;
+  --vsc-status-bg:    #007acc;
+  --vsc-status-text:  #ffffff;
+  --vsc-panel-bg:     #252526;
+  --vsc-border:       #404040;
+  --vsc-text:         #d4d4d4;
+  --vsc-muted:        #6a9955;
+  --vsc-keyword:      #569cd6;
+  --vsc-string:       #ce9178;
+  --vsc-number:       #b5cea8;
+  --vsc-comment:      #6a9955;
+  --vsc-type:         #4ec9b0;
+  --vsc-function:     #dcdcaa;
+  --vsc-accent:       #007acc;
+  --vsc-accent-light: #0e8cce;
+  --vsc-line-num:     #858585;
+  --vsc-line-num-active: #c6c6c6;
+  --vsc-gutter-bg:    #1e1e1e;
+  --vsc-selection:    rgba(38, 79, 120, 0.5);
+  --vsc-hover:        rgba(255,255,255,0.07);
+  --vsc-scrollbar:    #424242;
+}
+
+/* reset */
+*, *::before, *::after { box-sizing: border-box; }
+
+body.journal {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--vsc-bg);
+  color: var(--vsc-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Title Bar ───────────────────────────────────────────────────────────── */
+.site-nav {
+  background: #323233;
+  border-bottom: 1px solid #111;
+  flex-shrink: 0;
+  /* macOS-style: centered title, left controls */
+}
+
+.site-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  height: 30px;
+  position: relative;
+}
+
+/* Fake traffic-light dots */
+.site-nav-inner::before {
+  content: '';
+  display: block;
+  width: 52px;
+  height: 12px;
+  background:
+    radial-gradient(circle 5px at 6px 6px, #ff5f57 100%, transparent 100%),
+    radial-gradient(circle 5px at 24px 6px, #ffbd2e 100%, transparent 100%),
+    radial-gradient(circle 5px at 42px 6px, #28c840 100%, transparent 100%);
+  flex-shrink: 0;
+}
+
+.site-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 400;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.logo-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%, rgba(0,0,0,0.04) 100%),
+    #ede9e2;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+  flex-shrink: 0;
+}
+
+.site-nav-brand img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.site-nav-links {
+  display: flex;
+  gap: 16px;
+  z-index: 1;
+}
+
+.site-nav-links a {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+
+.site-nav-links a:hover { color: #ffffff; }
+
+/* ── Workbench layout ────────────────────────────────────────────────────── */
+.vsc-workbench {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Activity Bar ────────────────────────────────────────────────────────── */
+.vsc-activity-bar {
+  width: 48px;
+  background: var(--vsc-activity-bg);
+  border-right: 1px solid #252526;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.vsc-activity-icon {
+  width: 24px;
+  height: 24px;
+  color: #858585;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  position: relative;
+}
+
+.vsc-activity-icon.active {
+  color: #cccccc;
+}
+
+.vsc-activity-icon.active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--vsc-tab-active-border);
+  border-radius: 0 2px 2px 0;
+}
+
+.vsc-activity-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* ── Sidebar (Explorer) ──────────────────────────────────────────────────── */
+.journal-sidebar {
+  width: 240px;
+  background: var(--vsc-sidebar-bg);
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vsc-scrollbar) transparent;
+}
+
+.journal-sidebar::-webkit-scrollbar { width: 6px; }
+.journal-sidebar::-webkit-scrollbar-track { background: transparent; }
+.journal-sidebar::-webkit-scrollbar-thumb { background: var(--vsc-scrollbar); border-radius: 3px; }
+
+/* Explorer section header */
+.vsc-explorer-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bbbbbb;
+  padding: 12px 16px 6px;
+  user-select: none;
+}
+
+/* File tree */
+.journal-nav-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-year-label {
+  font-size: 0.75rem;
+  color: #bbbbbb;
+  padding: 3px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+
+.nav-year-label::before {
+  content: '▾';
+  font-size: 0.6rem;
+  color: #858585;
+}
+
+.nav-month-label {
+  font-size: 0.75rem;
+  color: #bbbbbb;
+  padding: 3px 16px 3px 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+
+.nav-month-label::before {
+  content: '▾';
+  font-size: 0.6rem;
+  color: #858585;
+}
+
+.nav-day {
+  padding-left: 0;
+}
+
+.nav-day-label {
+  font-size: 0.75rem;
+  color: #bbbbbb;
+  padding: 3px 16px 3px 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+
+.nav-day-label::before {
+  content: '▾';
+  font-size: 0.6rem;
+  color: #858585;
+}
+
+.nav-day ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-day li { padding: 0; }
+
+.nav-day a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 54px;
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-day a::before {
+  content: '📄';
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.nav-day a:hover {
+  background: var(--vsc-hover);
+}
+
+/* Sidebar section divider */
+.vsc-sidebar-section {
+  border-top: 1px solid #333;
+  padding-top: 4px;
+  margin-top: 8px;
+}
+
+.vsc-section-header {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bbbbbb;
+  padding: 8px 16px 4px;
+  user-select: none;
+}
+
+.vsc-tag-list {
+  list-style: none;
+  padding: 0 8px;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 12px 12px;
+}
+
+.vsc-tag-list li {
+  font-size: 0.7rem;
+  color: var(--vsc-function);
+  padding: 1px 6px;
+  border: 1px solid rgba(220, 220, 170, 0.25);
+  border-radius: 3px;
+}
+
+/* ── Editor area ─────────────────────────────────────────────────────────── */
+.vsc-editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Tab Bar ─────────────────────────────────────────────────────────────── */
+.vsc-tabs {
+  display: flex;
+  align-items: stretch;
+  background: var(--vsc-tab-bg);
+  border-bottom: 1px solid #111;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+
+.vsc-tabs::-webkit-scrollbar { display: none; }
+
+.vsc-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  min-height: 35px;
+  font-size: 0.8rem;
+  color: #969696;
+  border-right: 1px solid #252526;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  user-select: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.vsc-tab:hover {
+  background: rgba(255,255,255,0.05);
+  color: #cccccc;
+}
+
+.vsc-tab.active {
+  background: var(--vsc-tab-active);
+  color: #cccccc;
+}
+
+.vsc-tab.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--vsc-tab-active-border);
+}
+
+.vsc-tab-icon {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.vsc-tab-close {
+  font-size: 0.65rem;
+  color: #858585;
+  margin-left: 4px;
+  opacity: 0;
+  line-height: 1;
+}
+
+.vsc-tab:hover .vsc-tab-close,
+.vsc-tab.active .vsc-tab-close {
+  opacity: 1;
+}
+
+/* ── Summary panel ───────────────────────────────────────────────────────── */
+.note-summary {
+  display: grid;
+  gap: 12px;
+  padding: 20px 24px;
+  background: #252526;
+  border-bottom: 1px solid #333;
+}
+
+.journal-note {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #3c3c3c;
+  border-left: 3px solid var(--vsc-accent);
+  border-radius: 4px;
+  padding: 12px 16px;
+}
+
+.note-label {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  color: var(--vsc-comment);
+  letter-spacing: 0.06em;
+}
+
+.note-label::before { content: '// '; }
+
+.journal-note h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #e8e8e8;
+  font-weight: 500;
+}
+
+.journal-note p {
+  margin: 0;
+  color: #9d9d9d;
+  font-size: 0.82rem;
+}
+
+/* ── Scrollable editor viewport ──────────────────────────────────────────── */
+.journal-content {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vsc-scrollbar) transparent;
+}
+
+.journal-content::-webkit-scrollbar { width: 10px; }
+.journal-content::-webkit-scrollbar-track { background: transparent; }
+.journal-content::-webkit-scrollbar-thumb {
+  background: var(--vsc-scrollbar);
+  border-radius: 5px;
+  border: 2px solid var(--vsc-bg);
+}
+
+/* ── Date heading (commit-log style) ─────────────────────────────────────── */
+.journal-date-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid #333;
+}
+
+.journal-date-heading time {
+  font-size: 0.72rem;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  color: var(--vsc-number);
+  letter-spacing: 0.06em;
+}
+
+.journal-date-heading::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vsc-accent);
+  flex-shrink: 0;
+}
+
+.journal-date-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #333;
+}
+
+/* ── Entry with editor gutter ────────────────────────────────────────────── */
+.journal-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.entry-gutter {
+  background: var(--vsc-gutter-bg);
+  border-right: 1px solid #333;
+  padding: 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 10px;
+  user-select: none;
+  flex-shrink: 0;
+  counter-reset: line;
+}
+
+.entry-gutter-line {
+  font-size: 0.7rem;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  color: var(--vsc-line-num);
+  line-height: 24px;
+  min-width: 24px;
+  text-align: right;
+}
+
+.entry-body {
+  padding: 20px 40px 36px 24px;
+  max-width: 80ch;
+}
+
+.entry-meta {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  color: var(--vsc-comment);
+}
+
+.entry-meta::before { content: '/* '; }
+.entry-meta::after  { content: ' */'; }
+
+.journal-entry h2 {
+  margin: 0 0 24px;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  color: var(--vsc-function);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.journal-entry h3 {
+  margin: 28px 0 8px;
+  font-size: 0.72rem;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vsc-comment);
+}
+
+.journal-entry h3::before { content: '## '; color: var(--vsc-string); }
+
+.journal-entry p {
+  margin: 0 0 16px;
+  color: var(--vsc-text);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.journal-entry ul,
+.journal-entry ol {
+  margin: 0 0 18px;
+  padding-left: 1.4rem;
+}
+
+.journal-entry li {
+  color: var(--vsc-text);
+  margin-bottom: 7px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.journal-entry strong {
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+.journal-entry em {
+  color: var(--vsc-string);
+  font-style: italic;
+}
+
+.journal-entry code {
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.85em;
+  color: var(--vsc-type);
+  background: rgba(0,0,0,0.3);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.journal-entry blockquote {
+  margin: 20px 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--vsc-accent);
+  background: rgba(0, 122, 204, 0.08);
+  color: var(--vsc-keyword);
+  font-style: italic;
+  font-size: 0.9rem;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Compromise callout — warning diagnostic style */
+.callout-compromise {
+  margin: 20px 0;
+  padding: 12px 16px;
+  border-left: 3px solid #f0a04b;
+  background: rgba(240, 160, 75, 0.07);
+  border-radius: 0 4px 4px 0;
+}
+
+.callout-compromise::before {
+  content: '⚠ NOTE';
+  display: block;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #f0a04b;
+  margin-bottom: 6px;
+}
+
+.callout-compromise p {
+  margin: 0;
+  color: #e8d0b0;
+  font-size: 0.88rem;
+}
+
+.callout-compromise strong { color: #f0a04b; }
+
+/* ── Status Bar ──────────────────────────────────────────────────────────── */
+.vsc-status-bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--vsc-status-bg);
+  height: 22px;
+  flex-shrink: 0;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.7rem;
+  color: var(--vsc-status-text);
+  user-select: none;
+  overflow: hidden;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 5px;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.status-item:hover { background: rgba(255,255,255,0.15); }
+
+.status-left  { display: flex; align-items: stretch; }
+.status-right { display: flex; align-items: stretch; margin-left: auto; }
+
+.status-branch::before { content: '⎇  '; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vsc-activity-bar { display: none; }
+  .journal-sidebar  { width: 200px; }
+  .entry-body       { padding: 16px 20px 28px 16px; }
+}
+
+@media (max-width: 640px) {
+  .vsc-workbench  { flex-direction: column; }
+  .journal-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #333;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  .journal-entry  { grid-template-columns: 1fr; }
+  .entry-gutter   { display: none; }
+  .vsc-status-bar .status-right { display: none; }
+}

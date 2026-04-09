@@ -5,16 +5,22 @@
   "type": "commonjs",
   "description": "Backend static host for epheme.org showcase",
   "scripts": {
+    "build:client": "esbuild src/vote.js --bundle --outfile=public/vote.js --platform=browser --format=iife",
+    "dev:client": "esbuild src/vote.js --bundle --outfile=public/vote.js --platform=browser --format=iife --watch",
     "dev": "node --watch index.js",
     "start": "node index.js"
   },
+  "devDependencies": {
+    "esbuild": "^0.24.2"
+  },
   "dependencies": {
-    "@epheme/core": "^0.1.5",
+    "@epheme/core": "^0.1.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ephemeorg": "file:..",
     "express": "^4.19.2",
     "gray-matter": "^4.0.3",
+    "ioredis": "^5.3.2",
     "marked": "^9.0.0",
     "pino": "^9.14.0",
     "pino-http": "^10.5.0",
